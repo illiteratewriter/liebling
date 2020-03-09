@@ -2,7 +2,7 @@
   padding-bottom: 15px;
 
   @include respond-to('medium') {
-    max-width: 820px;
+    max-width: 680px;
     margin: 0 auto;
 
     @include respond-to('medium') {
@@ -79,13 +79,13 @@
   p {
     letter-spacing: 0.2px;
     line-height: 1.5;
-    font-size: 1.125rem;
+    font-size: 1.1rem;
     margin-bottom: 25px;
 
     @include respond-to('medium') {
       letter-spacing: 0.3px;
       line-height: 1.6;
-      font-size: 1.250rem;
+      font-size: 1.1rem;
       margin-bottom: 30px;
     }
 
@@ -100,26 +100,28 @@
 
   a {
     color: var(--primary-foreground-color);
-    text-decoration: underline;
+    // text-decoration: underline;
+    font-weight: bold;
+    border-bottom: 4px solid #85EDEE;
   }
 
   ul, ol {
     letter-spacing: 0.2px;
     line-height: 1.5;
-    font-size: 1.125rem;
+    font-size: 1.09rem;
     padding-left: 20px;
     margin: 0 0 20px 0;
 
     @include respond-to('medium') {
       letter-spacing: 0.3px;
       line-height: 1.6;
-      font-size: 1.250rem;
+      font-size: 1.09rem;
       padding-left: 40px;
       margin-bottom: 30px;
     }
 
     li {
-      margin-bottom: 20px;
+      margin-bottom: 5px;
     }
   }
 
@@ -284,16 +286,15 @@
     position: relative;
     letter-spacing: 0.2px;
     line-height: 1.5;
-    font-size: 1.125rem;
-    font-style: italic;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.3rem !important;
+    font-family: 'Gloria Hallelujah', cursive;
     padding: 0 40px;
     margin: 0 0 25px;
 
     @include respond-to('medium') {
       letter-spacing: 0.3px;
       line-height: 1.6;
-      font-size: 1.250rem;
+      font-size: 1.3rem !important;
       padding: 0 60px;
       margin-bottom: 30px;
     }
@@ -310,6 +311,14 @@
       @include respond-to('medium') {
         font-size: 4rem;
       }
+    }
+
+    p {
+      font-size: 1.3rem !important;
+    }
+
+    strong {
+      color: #BC2C3D;
     }
 
     p:last-child {
@@ -381,10 +390,6 @@
       @include respond-to('medium') {
         padding: 20px;
       }
-    }
-
-    &.line-numbers > code {
-      padding: 0;
     }
   }
 
@@ -570,4 +575,17 @@
       }
     }
   }
+}
+
+.button {
+  background-color: #ef7b69;
+  border: none !important;
+  color: white !important;
+  padding: 15px 32px;
+  text-emphasis: center;
+  border: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 25px;
 }

@@ -1,5 +1,7 @@
 /** Global styles */
-
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 body {
   display: flex;
   flex-direction: column;
@@ -7,7 +9,7 @@ body {
   min-height: 100vh;
   color: var(--primary-foreground-color);
   font-size: 1rem;
-  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  font-family: 'Muli', serif;
   font-display: swap;
   overflow-x: hidden;
   background-color: var(--background-color);
