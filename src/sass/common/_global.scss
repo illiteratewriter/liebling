@@ -1,7 +1,6 @@
 /** Global styles */
-@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&display=swap');
 body {
   display: flex;
   flex-direction: column;
@@ -9,7 +8,7 @@ body {
   min-height: 100vh;
   color: var(--primary-foreground-color);
   font-size: 1rem;
-  font-family: 'Muli', serif;
+  font-family: 'Crete Round', serif;
   font-display: swap;
   overflow-x: hidden;
   background-color: var(--background-color);
