@@ -10,7 +10,9 @@ import Fuse from 'fuse.js'
 import {
   isRTL,
   formatDate,
-  isDarkMode
+  isDarkMode,
+  isMobile,
+  getParameterByName
 } from './helpers'
 
 cssVars({})
@@ -29,6 +31,7 @@ $(document).ready(() => {
   const $submenuOption = $('.js-submenu-option')[0]
   const $submenu = $('.js-submenu')
   const $recentArticles = $('.js-recent-articles')
+  const $openSecondaryMenu = $('.js-open-secondary-menu')
   const $openSearch = $('.js-open-search')
   const $closeSearch = $('.js-close-search')
   const $search = $('.js-search')
@@ -36,10 +39,12 @@ $(document).ready(() => {
   const $searchResults = $('.js-search-results')
   const $searchNoResults = $('.js-no-results')
   const $toggleDarkMode = $('.js-toggle-darkmode')
+  const $closeNotification = $('.js-notification-close')
   const currentSavedTheme = localStorage.getItem('theme')
 
   let fuse = null
   let submenuIsOpen = false
+  let secondaryMenuTippy = null
 
   function showSubmenu() {
     $header.addClass('submenu-is-active')
@@ -100,6 +105,49 @@ $(document).ready(() => {
       .catch((err) => {
         console.log(err)
       })
+  }
+
+  const showNotification = (typeNotification) => {
+    const $notification = $(`.js-alert[data-notification="${typeNotification}"]`)
+    $notification.addClass('opened')
+    setTimeout(() => {
+      closeNotification($notification)
+    }, 5000)
+  }
+
+  const closeNotification = ($notification) => {
+    $notification.removeClass('opened')
+    const url = window.location.toString()
+
+    if (url.indexOf('?') > 0) {
+      const cleanUrl = url.substring(0, url.indexOf('?'))
+      window.history.replaceState({}, document.title, cleanUrl)
+    }
+  }
+
+  const checkForActionParameter = () => {
+    const action = getParameterByName('action')
+    const stripe = getParameterByName('stripe')
+
+    if (action === 'subscribe') {
+      showNotification('subscribe')
+    }
+
+    if (action === 'signup') {
+      window.location = `${ghostHost}/signup/?action=checkout`
+    }
+
+    if (action === 'checkout') {
+      showNotification('signup')
+    }
+
+    if (action === 'signin') {
+      showNotification('signin')
+    }
+
+    if (stripe === 'success') {
+      showNotification('checkout')
+    }
   }
 
   $openMenu.click(() => {
@@ -179,6 +227,10 @@ $(document).ready(() => {
     }
   })
 
+  $closeNotification.click(function () {
+    closeNotification($(this).parent())
+  })
+
   $(window).click((e) => {
     if (submenuIsOpen) {
       if ($submenuOption && !$submenuOption.contains(e.target)) {
@@ -200,15 +252,24 @@ $(document).ready(() => {
     }
   }
 
-  var headerElement = document.querySelector('.js-header')
-
-  if (headerElement) {
-    var headroom = new Headroom(headerElement, {
+  if ($header.length > 0) {
+    const headroom = new Headroom($header[0], {
       tolerance: {
         down: 10,
         up: 20
       },
-      offset: 15
+      offset: 15,
+      onUnpin: () => {
+        if (!isMobile() && secondaryMenuTippy) {
+          const desktopSecondaryMenuTippy = secondaryMenuTippy[0]
+
+          if (
+            desktopSecondaryMenuTippy && desktopSecondaryMenuTippy.state.isVisible
+          ) {
+            desktopSecondaryMenuTippy.hide()
+          }
+        }
+      }
     })
     headroom.init()
   }
@@ -244,10 +305,22 @@ $(document).ready(() => {
   })
   observer.observe()
 
+  if ($openSecondaryMenu.length > 0) {
+    const template = document.getElementById('secondary-navigation-template')
+
+    secondaryMenuTippy = tippy('.js-open-secondary-menu', {
+      content: template.innerHTML,
+      arrow: true,
+      trigger: 'click',
+      interactive: true
+    })
+  }
+
   tippy('.js-tooltip')
 
   shave('.js-article-card-title', 100)
   shave('.js-article-card-title-no-image', 250)
 
+  checkForActionParameter()
   trySearchFeature()
 })
