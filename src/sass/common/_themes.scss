@@ -1,7 +1,7 @@
 :root,
 [data-theme="light"] {
   --background-color: #fff;
-  --primary-foreground-color: #2C2627;
+  --primary-foreground-color: #121212;
   --secondary-foreground-color: #000;
   --primary-subtle-color: #04aeee;
   --secondary-subtle-color: #f4f8fd;
@@ -46,7 +46,7 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --background-color: #fff;
-    --primary-foreground-color: #4a4a4a;
+    --primary-foreground-color: #121212;
     --secondary-foreground-color: #000;
     --primary-subtle-color: #04aeee;
     --secondary-subtle-color: #f4f8fd;
